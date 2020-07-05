@@ -1,44 +1,49 @@
 import Vue from 'vue'
-import Router from 'vue-router'
+import VueRouter from 'vue-router'
+import Blogs from '../views/Blogs.vue'
+import Blog from '../views/Blog.vue'
+import BlogEdit from '../views/BlogEdit.vue'
+import Login from '../views/Login.vue'
 
-import Login from '@/components/Login'
-import Blog from '@/components/Blog'
-import Blogs from '@/components/Blogs'
-import BlogEdit from '@/components/BlogEdit'
+Vue.use(VueRouter)
 
-Vue.use(Router)
-
-export default new Router({
-  routes: [
+const routes = [
     {
-      path: '/',
-      name: 'Index',
-      component: Blogs
+        path: '/',
+        name: 'index',
+        redirect: {name: 'Blogs'}
     },
     {
-      path: '/blogs',
-      name: 'Blogs',
-      component: Blogs
+        path: '/blogs',
+        name: 'Blogs',
+        component: Blogs
     },
     {
-      path: '/login',
-      name: 'Login',
-      component: Login
+        path: '/login',
+        name: 'Login',
+        component: Login
     },
     {
-      path: '/blog/input',
-      name: 'BlogEdit',
-      component: BlogEdit
+        path: '/blog/input',
+        name: 'BlogInput',
+        component: BlogEdit
     },
     {
-      path: '/blog/:blogId',
-      name: 'Blog',
-      component: Blog
+        path: '/blog/:blogId',
+        name: 'Blog',
+        component: Blog
     },
     {
-      path: '/blog/:blogId/edit',
-      name: 'BlogEdit',
-      component: BlogEdit
+        path: '/blog/:blogId/edit',
+        name: 'BlogEdit',
+        component: BlogEdit
     }
-  ]
+]
+
+const router = new VueRouter({
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes
 })
+
+export default router
