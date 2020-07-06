@@ -48,8 +48,8 @@
                     if (valid) {
                         const _this = this
                         this.$axios.post('/login', this.ruleForm).then(res => {
-                            console.log(res.headers)
-                            console.log(res)
+                            // console.log(res.headers)
+                            // console.log(res)
                             const jwt = res.headers['authorization']
                             const userInfo = res.data.data
 
@@ -58,12 +58,12 @@
                             _this.$store.commit('SET_USERINFO', userInfo)
 
                             // get data from Storage
-                            console.log(_this.$store.getters.getUser)
+                            // console.log(_this.$store.getters.getUser)
 
                             _this.$router.push('/blogs')
                         });
                     } else {
-                        console.log('error submit!!');
+                        // console.log('error submit!!');
                         return false;
                     }
                 });
