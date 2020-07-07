@@ -1,18 +1,6 @@
 <template>
-    <div class="m-header">
-        <h3>欢迎来到webbleen的博客</h3>
-        <div class="block">
-            <el-avatar :size="50" :src="user.avatar"></el-avatar>
-            <div>{{user.username}}</div>
-            <div class="m-action">
-                <span><el-link :underline="false" href="/blogs">主页</el-link></span>
-                <el-divider direction="vertical"></el-divider>
-                <span><el-link type="success" :underline="false" href="/blog/input">发表博客</el-link></span>
-                <el-divider direction="vertical"></el-divider>
-                <span v-show="!hasLogin"><el-link type="primary" :underline="false" href="/login">登录</el-link></span>
-                <span v-show="hasLogin"><el-link type="danger" :underline="false" @click="logout">退出</el-link></span>
-            </div>
-        </div>
+    <div class="panel-cover">
+
     </div>
 </template>
 
@@ -25,7 +13,7 @@
                     username: '请先登录',
                     avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
                 },
-                hasLogin: false
+                hasLogin: false,
             }
         },
         methods: {
@@ -53,12 +41,16 @@
 </script>
 
 <style scoped>
-    .m-header {
-        max-width: 960px;
-        margin: 0 auto;
-        text-align: center;
+
+    .panel-cover {
+        display: block;
+        position: fixed;
+        z-index: 900;
+        width: 100%;
+        max-width: none;
+        height: 100%;
+        background: url(../assets/images/background-cover.jpg) top left no-repeat #666666;
+        background-size: cover;
     }
-    .m-action {
-        margin: 10px 0;
-    }
+
 </style>
