@@ -1,25 +1,29 @@
 <template>
     <div class="m-container">
-        <Header></Header>
-        <div class="m-blog">
-            <h2>
-                {{blog.title}}
-            </h2>
-            <el-link icon="el-icon-edit" v-if="ownBlog">
-                <router-link :to="{name: 'BlogEdit', params: {blogId: blog.id}}">编辑</router-link>
-            </el-link>
-            <el-divider></el-divider>
-            <div class="content markdown-body" v-html="blog.content"></div>
-        </div>
+        <Layout>
+            <div class="block" slot="main-content">
+                <div class="m-blog" slot="main">
+                    <h2>
+                        {{blog.title}}
+                    </h2>
+                    <el-link icon="el-icon-edit" v-if="ownBlog">
+                        <router-link :to="{name: 'bloginput', params: {blogId: blog.id}}">编辑</router-link>
+                    </el-link>
+                    <el-divider></el-divider>
+                    <div class="content markdown-body" v-html="blog.content"></div>
+                </div>
+            </div>
+        </Layout>
     </div>
 </template>
 
 <script>
-    import Header from "../components/Header";
+    import Layout from '@/layout'
     import 'github-markdown-css/github-markdown.css'
+
     export default {
-        name: 'Blog',
-        components: {Header},
+        name: 'blog',
+        components: {Layout},
         data() {
             return {
                 blog: {
@@ -28,7 +32,7 @@
                     title: '',
                     description: '',
                     content: '',
-                    created: ''
+                    createTime: ''
                 },
                 ownBlog: false
             }

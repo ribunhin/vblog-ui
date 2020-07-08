@@ -1,32 +1,32 @@
 <template>
     <div>
-        <Header></Header>
-
-        <div class="m-content">
-            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
-                <el-form-item label="标题" prop="title">
-                    <el-input v-model="ruleForm.title"></el-input>
-                </el-form-item>
-                <el-form-item label="摘要" prop="description">
-                    <el-input type="textarea" v-model="ruleForm.description"></el-input>
-                </el-form-item>
-                <el-form-item label="内容" prop="content">
-                    <mavon-editor v-model="ruleForm.content"></mavon-editor>
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="primary" @click="submitForm('ruleForm')">Create</el-button>
-                    <el-button @click="resetForm('ruleForm')">Reset</el-button>
-                </el-form-item>
-            </el-form>
-        </div>
+        <Layout>
+            <div class="m-content" slot="main-content">
+                <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
+                    <el-form-item label="标题" prop="title">
+                        <el-input v-model="ruleForm.title"></el-input>
+                    </el-form-item>
+                    <el-form-item label="摘要" prop="description">
+                        <el-input type="textarea" v-model="ruleForm.description"></el-input>
+                    </el-form-item>
+                    <el-form-item label="内容" prop="content">
+                        <mavon-editor v-model="ruleForm.content"></mavon-editor>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" @click="submitForm('ruleForm')">Create</el-button>
+                        <el-button @click="resetForm('ruleForm')">Reset</el-button>
+                    </el-form-item>
+                </el-form>
+            </div>
+        </Layout>>
     </div>
 </template>
 
 <script>
-    import Header from '../components/Header'
+    import Layout from '@/layout'
     export default {
         name: 'BlogEdit',
-        components: {Header},
+        components: {Layout},
         data() {
             return {
                 ruleForm: {

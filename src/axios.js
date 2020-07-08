@@ -35,6 +35,7 @@ axios.interceptors.response.use(response => {
             router.push('/login')
         }
 
-        Element.Message.error(error.message, {duration: 3 * 1000})
+        // Element.Message.error(error.message, {duration: 3 * 1000})
+        console.log(error.message)
         return Promise.reject(error)
     })

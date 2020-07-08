@@ -1,51 +1,82 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Index from "../views/Index"
-import Blogs from '../views/Blogs.vue'
-import Blog from '../views/Blog.vue'
-import BlogEdit from '../views/BlogEdit.vue'
-import Login from '../views/Login.vue'
+import blog from '../views/show/blog.vue'
+import blogs from '../views/show/blogs.vue'
+import types from '../views/show/types.vue'
+import tags from '../views/show/tags.vue'
+import about from '../views/show/about.vue'
+import archives from '../views/show/archives.vue'
+import bloginput from '../views/admin/blog-input.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
     {
+        path: '/login',
+        component: () => import('@/views/login/index'),
+        hidden: true
+    },
+    {
         path: '/',
-        name: 'Index',
-        component: Index
+        name: 'index',
+        component: () => import('@/views/show/index')
     },
     {
         path: '/blogs',
-        name: 'Blogs',
-        component: Blogs
-    },
-    {
-        path: '/login',
-        name: 'Login',
-        component: Login
-    },
-    {
-        path: '/blog/input',
-        name: 'BlogInput',
-        component: BlogEdit,
-        meta: {
-            requireAuth: true
-        }
+        name: 'blogs',
+        component: blogs
     },
     {
         path: '/blog/:blogId',
-        name: 'Blog',
-        component: Blog
+        name: 'blog',
+        component: blog
     },
     {
-        path: '/blog/:blogId/edit',
-        name: 'BlogEdit',
-        component: BlogEdit,
+        path: '/types',
+        name: 'types',
+        component: types
+    },
+    {
+        path: '/tags',
+        name: 'tags',
+        component: tags
+    },
+    {
+        path: '/archives',
+        name: 'archives',
+        component: archives
+    },
+    {
+        path: '/about',
+        name: 'about',
+        component: about
+    },
+    // admin start
+    {
+        path: '/admin',
+        component: () => import('@/views/admin/index'),
         meta: {
             requireAuth: true
         }
-    }
+    },
+    {
+        path: '/blog/:blogId/edit',
+        name: 'bloginput',
+        component: bloginput,
+        meta: {
+            requireAuth: true
+        }
+    },
+    {
+        path: '/blog/input',
+        name: 'blog-input',
+        component: bloginput,
+        meta: {
+            requireAuth: true
+        }
+    },
+    //admin end
 ]
 
 const router = new VueRouter({
