@@ -2,13 +2,13 @@
     <div>
         <el-container>
             <el-header>
-                <slot name="header"></slot>
+                <slot name="main-header"></slot>
             </el-header>
             <el-main>
-                <slot name="main"></slot>
+                <slot name="main-content"></slot>
             </el-main>
             <el-footer>
-                <slot name="footer"></slot>
+                <slot name="main-footer"></slot>
             </el-footer>
         </el-container>
     </div>

@@ -1,15 +1,15 @@
 <template>
     <div class="app-wrapper">
-        <Sidebar class="sidebar-container"/>
+        <Sidebar class="sidebar-container m-mobile-hide"/>
         <div class="main-container">
             <AppMain>
-                <div slot="header">
+                <div slot="main-header">
                     <slot name="main-header"></slot>
                 </div>
-                <div slot="main">
+                <div slot="main-content">
                     <slot name="main-content"></slot>
                 </div>
-                <div slot="footer">
+                <div slot="main-footer">
                     <slot name="main-footer"></slot>
                 </div>
             </AppMain>

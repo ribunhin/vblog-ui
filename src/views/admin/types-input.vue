@@ -2,7 +2,7 @@
     <div>
         <Layout>
             <div slot="main-content">
-                about
+                types-input
             </div>
         </Layout>
     </div>
@@ -12,7 +12,7 @@
     import Layout from '@/layout'
 
     export default {
-        name: "about",
+        name: "types-input",
         components: {Layout},
     }
 </script>

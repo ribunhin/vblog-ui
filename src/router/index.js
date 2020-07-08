@@ -1,19 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import blog from '../views/show/blog.vue'
-import blogs from '../views/show/blogs.vue'
-import types from '../views/show/types.vue'
-import tags from '../views/show/tags.vue'
-import about from '../views/show/about.vue'
-import archives from '../views/show/archives.vue'
-import bloginput from '../views/admin/blog-input.vue'
-
 Vue.use(VueRouter)
 
 const routes = [
     {
         path: '/login',
+        name: 'login',
         component: () => import('@/views/login/index'),
         hidden: true
     },
@@ -23,34 +16,39 @@ const routes = [
         component: () => import('@/views/show/index')
     },
     {
-        path: '/blogs',
-        name: 'blogs',
-        component: blogs
-    },
-    {
-        path: '/blog/:blogId',
+        path: '/blogs/:blogId',
         name: 'blog',
-        component: blog
+        component: () => import('@/views/show/blog')
     },
     {
         path: '/types',
         name: 'types',
-        component: types
+        component: () => import('@/views/show/types')
+    },
+    {
+        path: '/types/:typeId',
+        name: 'types',
+        component: () => import('@/views/show/types')
     },
     {
         path: '/tags',
         name: 'tags',
-        component: tags
+        component: () => import('@/views/show/tags')
+    },
+    {
+        path: '/tags/:tagId',
+        name: 'tags',
+        component: () => import('@/views/show/tags')
     },
     {
         path: '/archives',
         name: 'archives',
-        component: archives
+        component: () => import('@/views/show/archives')
     },
     {
         path: '/about',
         name: 'about',
-        component: about
+        component: () => import('@/views/show/about')
     },
     // admin start
     {
@@ -61,17 +59,73 @@ const routes = [
         }
     },
     {
-        path: '/blog/:blogId/edit',
-        name: 'bloginput',
-        component: bloginput,
+        path: '/admin/blogs',
+        name: 'admin-blogs',
+        component: () => import('@/views/admin/blogs'),
         meta: {
             requireAuth: true
         }
     },
     {
-        path: '/blog/input',
-        name: 'blog-input',
-        component: bloginput,
+        path: '/admin/blogs/input',
+        name: 'admin-blogs-input',
+        component: () => import('@/views/admin/blogs-input'),
+        meta: {
+            requireAuth: true
+        }
+    },
+    {
+        path: '/admin/blogs/:blogId/input',
+        name: 'admin-blogs-edit',
+        component: () => import('@/views/admin/blogs-input'),
+        meta: {
+            requireAuth: true
+        }
+    },
+    {
+        path: '/admin/types',
+        name: 'admin-types',
+        component: () => import('@/views/admin/types'),
+        meta: {
+            requireAuth: true
+        }
+    },
+    {
+        path: '/admin/types/input',
+        name: 'admin-types-input',
+        component: () => import('@/views/admin/types-input'),
+        meta: {
+            requireAuth: true
+        }
+    },
+    {
+        path: '/admin/types/:typeId/input',
+        name: 'admin-types-edit',
+        component: () => import('@/views/admin/types-input'),
+        meta: {
+            requireAuth: true
+        }
+    },
+    {
+        path: '/admin/tags',
+        name: 'admin-tags',
+        component: () => import('@/views/admin/tags'),
+        meta: {
+            requireAuth: true
+        }
+    },
+    {
+        path: '/admin/tags/input',
+        name: 'admin-tags-input',
+        component: () => import('@/views/admin/tags-input'),
+        meta: {
+            requireAuth: true
+        }
+    },
+    {
+        path: '/admin/tags/:tagId/input',
+        name: 'admin-tags-edit',
+        component: () => import('@/views/admin/tags-input'),
         meta: {
             requireAuth: true
         }

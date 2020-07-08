@@ -3,38 +3,59 @@
         <el-aside class="m-sidebar-main">
             <div class="m-sidebar-main__inner m-sidebar-inverted">
                 <h3>欢迎来到webbleen的博客</h3>
+                <div style="margin: 24px auto;"></div>
                 <div class="block">
-                    <el-avatar :size="50" :src="user.avatar"></el-avatar>
+                    <div style="margin: 24px auto;"></div>
+                    <el-avatar :size="100" :src="user.avatar" :class="'m-avatar'"></el-avatar>
+                    <div style="margin: 24px auto;"></div>
                     <div>{{user.username}}</div>
+                    <div style="margin: 24px auto;"></div>
                     <div class="m-action">
                         <el-divider direction="vertical"></el-divider>
-                        <span><el-link :underline="false" href="/">主页</el-link></span>
+                        <el-link>
+                            <router-link :to="{name: 'index'}" tag="p">主页</router-link>
+                        </el-link>
                         <el-divider direction="vertical"></el-divider>
-                        <span><el-link :underline="false" href="/types">分类</el-link></span>
+                        <el-link>
+                            <router-link :to="{name: 'types'}" tag="p">分类</router-link>
+                        </el-link>
                         <el-divider direction="vertical"></el-divider>
-                        <span><el-link :underline="false" href="/tags">标签</el-link></span>
+                        <el-link>
+                            <router-link :to="{name: 'tags'}" tag="p">标签</router-link>
+                        </el-link>
                         <el-divider direction="vertical"></el-divider>
-                        <span><el-link :underline="false" href="/archives">归档</el-link></span>
+                        <el-link>
+                            <router-link :to="{name: 'archives'}" tag="p">归档</router-link>
+                        </el-link>
                         <el-divider direction="vertical"></el-divider>
-                        <span><el-link :underline="false" href="/about">关于我</el-link></span>
+                        <el-link>
+                            <router-link :to="{name: 'about'}" tag="p">关于我</router-link>
+                        </el-link>
                         <el-divider direction="vertical"></el-divider>
                     </div>
                     <div v-if="hasLogin">
                         <div style="margin: 24px auto;"></div>
                         <el-divider direction="vertical"></el-divider>
-                        <span><el-link type="primary" :underline="false" href="/admin/blogs">博客</el-link></span>
+                        <el-link type="primary">
+                            <router-link :to="{name: 'admin-blogs'}" tag="p">博客</router-link>
+                        </el-link>
                         <el-divider direction="vertical"></el-divider>
-                        <span><el-link type="success" :underline="false" href="/admin/types">分类</el-link></span>
+                        <el-link type="success">
+                            <router-link :to="{name: 'admin-types'}" tag="p">分类</router-link>
+                        </el-link>
                         <el-divider direction="vertical"></el-divider>
-                        <span><el-link type="warning" :underline="false" href="/admin/tags">标签</el-link></span>
+                        <el-link type="warning">
+                            <router-link :to="{name: 'admin-tags'}" tag="p">标签</router-link>
+                        </el-link>
                         <el-divider direction="vertical"></el-divider>
                     </div>
                     <div style="margin: 24px auto;"></div>
                     <div>
                         <el-divider direction="vertical"></el-divider>
-                        <span v-show="!hasLogin"><el-link type="primary" :underline="false"
-                                                          href="/login">登录</el-link></span>
-                        <span v-show="hasLogin"><el-link type="danger" :underline="false"
+                        <el-link type="primary" v-show="!hasLogin">
+                            <router-link :to="{name: 'login'}" tag="p">登录</router-link>
+                        </el-link>
+                        <span v-show="hasLogin"><el-link type="danger"
                                                          @click="logout">退出</el-link></span>
                         <el-divider direction="vertical"></el-divider>
                     </div>
@@ -123,6 +144,10 @@
         background-color: rgba(119, 31, 18, 0.6);
         background-image: -webkit-linear-gradient(-410deg, rgba(119, 31, 18, 0.6) 20%, rgba(30, 8, 5, 0.8));
         background-image: linear-gradient(140deg, rgba(119, 31, 18, 0.6) 20%, rgba(30, 8, 5, 0.8));
+    }
+
+    .m-avatar {
+        border: white 2px solid;
     }
 
     .m-action {

@@ -1,5 +1,5 @@
 <template>
-    <div class="m-container">
+    <div>
         <Layout>
             <div class="block" slot="main-content">
                 <div class="m-blog" slot="main">
@@ -7,7 +7,7 @@
                         {{blog.title}}
                     </h2>
                     <el-link icon="el-icon-edit" v-if="ownBlog">
-                        <router-link :to="{name: 'bloginput', params: {blogId: blog.id}}">编辑</router-link>
+                        <router-link :to="{name: 'admin-blogs-edit', params: {blogId: blog.id}}">编辑</router-link>
                     </el-link>
                     <el-divider></el-divider>
                     <div class="content markdown-body" v-html="blog.content"></div>
@@ -41,7 +41,7 @@
             getBlog() {
                 const blogId = this.$route.params.blogId
                 const _this = this
-                this.$axios.get('/blog/' + blogId).then(res => {
+                this.$axios.get('/blogs/' + blogId).then(res => {
                     // console.log(res.data.data)
                     _this.blog = res.data.data
                     var markdownIt = require('markdown-it')
