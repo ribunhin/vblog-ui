@@ -10,111 +10,36 @@
         </el-header>
 
         <el-container>
-            <el-aside>
+            <el-aside :width="isCollapse ? '64px':'200px'">
                 <div class="toggle-button" @click="toggleCollapase">|||</div>
                 <el-menu
-                        default-active="2"
-                        class="el-menu-vertical-demo"
+                        :default-active="activeId"
                         @open="handleOpen"
                         @close="handleClose"
                         background-color="#545c64"
                         text-color="#fff"
-                        active-text-color="#ffd04b">
-                    <el-submenu index="1">
+                        active-text-color="#ffd04b"
+                        :collapse="isCollapse"
+                        :collapse-transition="false"
+                        :router="true">
+                    <el-submenu :index="item.path" v-for="item in menuList" :key="item.id">
                         <template slot="title">
-                            <i class="el-icon-location"></i>
-                            <span>Navigator One</span>
+                            <i :class="iconsObject[item.id]"></i>
+                            <span>{{item.title}}</span>
                         </template>
-                        <el-menu-item-group title="Group One">
-                            <el-menu-item index="1-1">item one</el-menu-item>
-                            <el-menu-item index="1-2">item one</el-menu-item>
-                        </el-menu-item-group>
-                        <el-menu-item-group title="Group Two">
-                            <el-menu-item index="1-3">item three</el-menu-item>
-                        </el-menu-item-group>
-                        <el-submenu index="1-4">
-                            <template slot="title">item four</template>
-                            <el-menu-item index="1-4-1">item one</el-menu-item>
-                        </el-submenu>
+                        <el-menu-item :index="it.path" v-for="it in item.slist" :key="it.id"
+                                      @click="clickMenu(it.path)">
+                            <template slot="title">
+                                <i :class="iconsObject[item.id]"></i>
+                                <span>{{it.title}}</span>
+                            </template>
+                        </el-menu-item>
                     </el-submenu>
-                    <el-menu-item index="2">
-                        <i class="el-icon-menu"></i>
-                        <span>Navigator Two</span>
-                    </el-menu-item>
-                    <el-menu-item index="3" disabled>
-                        <i class="el-icon-document"></i>
-                        <span>Navigator Three</span>
-                    </el-menu-item>
-                    <el-menu-item index="4">
-                        <i class="el-icon-setting"></i>
-                        <span>Navigator Four</span>
-                    </el-menu-item>
                 </el-menu>
-                <!--
-                <div class="m-sidebar-main__inner m-sidebar-inverted">
-                    <h3>欢迎来到webbleen的博客</h3>
-                    <div style="margin: 24px auto;"></div>
-                    <div class="block">
-                        <div style="margin: 24px auto;"></div>
-                        <el-avatar :size="100" :src="user.avatar" :class="'m-avatar'"></el-avatar>
-                        <div style="margin: 24px auto;"></div>
-                        <div>{{user.username}}</div>
-                        <div style="margin: 24px auto;"></div>
-                        <div class="m-action">
-                            <el-divider direction="vertical"></el-divider>
-                            <el-link>
-                                <router-link :to="{name: 'index'}" tag="p">主页</router-link>
-                            </el-link>
-                            <el-divider direction="vertical"></el-divider>
-                            <el-link>
-                                <router-link :to="{name: 'types'}" tag="p">分类</router-link>
-                            </el-link>
-                            <el-divider direction="vertical"></el-divider>
-                            <el-link>
-                                <router-link :to="{name: 'tags'}" tag="p">标签</router-link>
-                            </el-link>
-                            <el-divider direction="vertical"></el-divider>
-                            <el-link>
-                                <router-link :to="{name: 'archives'}" tag="p">归档</router-link>
-                            </el-link>
-                            <el-divider direction="vertical"></el-divider>
-                            <el-link>
-                                <router-link :to="{name: 'about'}" tag="p">关于我</router-link>
-                            </el-link>
-                            <el-divider direction="vertical"></el-divider>
-                        </div>
-                        <div v-if="hasLogin">
-                            <div style="margin: 24px auto;"></div>
-                            <el-divider direction="vertical"></el-divider>
-                            <el-link type="primary">
-                                <router-link :to="{name: 'admin-blogs'}" tag="p">博客</router-link>
-                            </el-link>
-                            <el-divider direction="vertical"></el-divider>
-                            <el-link type="success">
-                                <router-link :to="{name: 'admin-types'}" tag="p">分类</router-link>
-                            </el-link>
-                            <el-divider direction="vertical"></el-divider>
-                            <el-link type="warning">
-                                <router-link :to="{name: 'admin-tags'}" tag="p">标签</router-link>
-                            </el-link>
-                            <el-divider direction="vertical"></el-divider>
-                        </div>
-                        <div style="margin: 24px auto;"></div>
-                        <div>
-                            <el-divider direction="vertical"></el-divider>
-                            <el-link type="primary" v-show="!hasLogin">
-                                <router-link :to="{name: 'login'}" tag="p">登录</router-link>
-                            </el-link>
-                            <span v-show="hasLogin"><el-link type="danger"
-                                                             @click="logout">退出</el-link></span>
-                            <el-divider direction="vertical"></el-divider>
-                        </div>
-                    </div>
-                </div>
-
-                -->
-<!--                <div class="m-sidebar-main-cover__overlay cover-red"></div>-->
             </el-aside>
+            <el-main>
+                <router-view />
+            </el-main>
         </el-container>
 
     </el-container>
@@ -125,14 +50,64 @@
         name: "home",
         data() {
             return {
-                user: {
-                    username: '请先登录',
-                    avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
+                menuList: [],
+                iconsObject: {
+                    '100': 'el-icon-s-tools',
+                    '200': 'el-icon-s-tools',
+                    '101': 'el-icon-s-tools',
+                    '102': 'el-icon-s-tools',
+                    '103': 'el-icon-s-tools',
+                    '104': 'el-icon-s-tools',
+                    '201': 'el-icon-s-tools',
+                    '202': 'el-icon-s-tools',
+                    '203': 'el-icon-s-tools',
+                    '204': 'el-icon-s-tools',
                 },
-                hasLogin: false
+                activeId: '101'
             }
         },
         methods: {
+            toggleCollapase() {
+                this.isCollapse = !this.isCollapse
+            },
+            handleOpen(key, keyPath) {
+                console.log(key)
+                console.log(keyPath)
+            },
+            handleClose(key, keyPath) {
+                console.log(key)
+                console.log(keyPath)
+            },
+            async getMenuList() {
+                const menuList = [
+                    {
+                        "id": '100',
+                        "path": "/admin",
+                        "slist": [
+                            {"id": 101, "path": "/user", "title": "用户列表"},
+                            {"id": 102, "path": "/rights", "title": "修改权限"},
+                            {"id": 103, "path": "/sport", "title": "运动模块"},
+                            {"id": 104, "path": "/goods", "title": "商品模块"}
+                        ],
+                        "title": "权限管理"
+                    },
+                    {
+                        "id": '200',
+                        "path": "/use",
+                        "slist": [
+                            {"id": 201, "path": "/Introduction", "title": "运动科普"},
+                            {"id": 202, "path": "/calories", "title": "卡路里"},
+                            {"id": 203, "path": "/food", "title": "营养配餐"}
+                        ],
+                        "title": "运动平台"
+                    }
+                ]
+
+                this.menuList = menuList
+            },
+            clickMenu(id) {
+                this.activeId = id
+            },
             logout() {
                 const _this = this
                 _this.$axios.get('/logout', {
@@ -143,53 +118,15 @@
                     _this.$store.commit('REMOVE_INFO')
                     _this.$router.push('/login')
                 })
-            },
-            toggleCollapase() {
-
             }
         },
         created() {
-            if (this.$store.getters.getUser != null) {
-                this.user.username = this.$store.getters.getUser.username
-                this.user.avatar = this.$store.getters.getUser.avatar
-                this.hasLogin = true
-            }
+            this.getMenuList();
         }
     }
 </script>
 
 <style lang="less" scoped>
-
-    .el-header {
-        background-color: #373d41;
-        display: flex;
-        padding-left: 0%;
-        justify-content: space-between; //左右贴边
-        align-items: center;
-        color: #ffffff;
-        font-size: 20px;
-        > div {
-            display: flex;
-            align-items: center;
-            span {
-                margin-left: 15px;
-            }
-        }
-    }
-
-    .el-aside {
-        background-color: #333744;
-    }
-
-    .toggle-button {
-        background-color:#4A5064;
-        font-size: 10px;
-        line-height: 24px;
-        color: #ffffff;
-        text-align: center;
-        letter-spacing: .2em;
-        cursor: pointer;
-    }
 
     .home-container {
         height: 100%;
@@ -200,54 +137,40 @@
         width: 20%;
     }
 
-    .m-sidebar-main {
-        display: table;
-        width: 100%;
-        height: 100%;
+    .el-header {
+        background-color: #373d41;
+        display: flex;
+        padding-left: 0%;
+        justify-content: space-between; //左右贴边
+        align-items: center;
+        color: #ffffff;
+        font-size: 20px;
+
+        > div {
+            display: flex;
+            align-items: center;
+
+            span {
+                margin-left: 15px;
+            }
+        }
     }
 
-    .m-sidebar-main__inner {
-        display: table-cell;
-        vertical-align: middle;
-        position: relative;
-        z-index: 800;
-        /*padding: 0 50px;*/
+    .el-aside {
+        background-color: #333744;
+        .el-menu {
+            border-right: 0;
+        }
     }
 
-    .m-sidebar-inverted {
-        font-weight: 100;
+    .toggle-button {
+        background-color: #4A5064;
+        font-size: 10px;
+        line-height: 24px;
+        color: #ffffff;
         text-align: center;
-        color: #FFF;
-        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+        letter-spacing: .2em;
+        cursor: pointer;
     }
 
-    .panel-inverted a {
-        color: #FFF;
-    }
-
-    .m-sidebar-main-cover__overlay {
-        position: absolute;
-        z-index: 0;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background-color: rgba(68, 68, 68, 0.6);
-        background-image: -webkit-linear-gradient(-410deg, rgba(68, 68, 68, 0.6) 20%, rgba(0, 0, 0, 0.9));
-        background-image: linear-gradient(140deg, rgba(68, 68, 68, 0.6) 20%, rgba(0, 0, 0, 0.9));
-    }
-
-    .cover-red {
-        background-color: rgba(119, 31, 18, 0.6);
-        background-image: -webkit-linear-gradient(-410deg, rgba(119, 31, 18, 0.6) 20%, rgba(30, 8, 5, 0.8));
-        background-image: linear-gradient(140deg, rgba(119, 31, 18, 0.6) 20%, rgba(30, 8, 5, 0.8));
-    }
-
-    .m-avatar {
-        border: white 2px solid;
-    }
-
-    .m-action {
-        margin: 10px 0;
-    }
 </style>

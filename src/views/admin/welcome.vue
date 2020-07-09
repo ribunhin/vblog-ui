@@ -1,27 +1,23 @@
 <template>
     <div>
-        <Layout>
-            <div slot="main-content" class="m-container m-padded-tb-big">
-                <el-alert
-                        title="Hi"
-                        type="success"
-                        :closable="false"
-                        description="欢迎回来"
-                        show-icon>
-                </el-alert>
-                <div class="m-welcome">
-                </div>
+        <div slot="main-content" class="m-container m-padded-tb-big">
+            <el-alert
+                    title="Hi"
+                    type="success"
+                    :closable="false"
+                    description="欢迎回来"
+                    show-icon>
+            </el-alert>
+            <div class="m-welcome">
             </div>
-        </Layout>
+        </div>
     </div>
 </template>
 
 <script>
-    import Layout from '@/layout'
 
     export default {
-        name: "admin",
-        components: {Layout},
+        name: "welcome",
         created() {
             this.$message({
                 message: 'Hi,' + this.$store.getters.getUser.nickname + '欢迎登录',
