@@ -33,7 +33,7 @@
     import Layout from '@/layout'
 
     export default {
-        name: 'Login',
+        name: 'login',
         components: {Layout},
         data() {
             return {

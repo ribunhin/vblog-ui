@@ -7,130 +7,108 @@ const routes = [
     {
         path: '/login',
         name: 'login',
-        component: () => import('@/views/login/index'),
+        component: () => import('@/views/login'),
         hidden: true
     },
     {
         path: '/',
         name: 'index',
-        component: () => import('@/views/show/index')
+        component: () => import('@/views/index')
     },
     {
         path: '/blogs/:blogId',
-        name: 'blog',
-        component: () => import('@/views/show/blog')
+        name: 'blogId',
+        component: () => import('@/views/blog')
     },
     {
         path: '/types',
         name: 'types',
-        component: () => import('@/views/show/types')
+        component: () => import('@/views/types')
     },
     {
         path: '/types/:typeId',
-        name: 'types',
-        component: () => import('@/views/show/types')
+        name: 'typeId',
+        component: () => import('@/views/types')
     },
     {
         path: '/tags',
         name: 'tags',
-        component: () => import('@/views/show/tags')
+        component: () => import('@/views/tags')
     },
     {
         path: '/tags/:tagId',
-        name: 'tags',
-        component: () => import('@/views/show/tags')
+        name: 'tagId',
+        component: () => import('@/views/tags')
     },
     {
         path: '/archives',
         name: 'archives',
-        component: () => import('@/views/show/archives')
+        component: () => import('@/views/archives')
     },
     {
         path: '/about',
         name: 'about',
-        component: () => import('@/views/show/about')
+        component: () => import('@/views/about')
     },
-    // admin start
     {
         path: '/admin',
-        component: () => import('@/views/admin/index'),
+        component: () => import('@/views/home'),
+        children: [
+            {
+                path: '',
+                name: 'welcome',
+                component: () => import('@/views/admin/welcome')
+            },
+            {
+                path: 'blogs',
+                name: 'admin-blogs',
+                component: () => import('@/views/admin/blogs')
+            },
+            {
+                path: 'blogs/input',
+                name: 'admin-blogs-input',
+                component: () => import('@/views/admin/blogs-input')
+            },
+            {
+                path: 'blogs/:blogId/input',
+                name: 'admin-blogs-edit',
+                component: () => import('@/views/admin/blogs-input')
+            },
+            {
+                path: 'types',
+                name: 'admin-types',
+                component: () => import('@/views/admin/types')
+            },
+            {
+                path: 'types/input',
+                name: 'admin-types-input',
+                component: () => import('@/views/admin/types-input')
+            },
+            {
+                path: 'types/:typeId/input',
+                name: 'admin-types-edit',
+                component: () => import('@/views/admin/types-input')
+            },
+            {
+                path: 'tags',
+                name: 'admin-tags',
+                component: () => import('@/views/admin/tags')
+            },
+            {
+                path: 'tags/input',
+                name: 'admin-tags-input',
+                component: () => import('@/views/admin/tags-input')
+            },
+            {
+                path: 'tags/:tagId/input',
+                name: 'admin-tags-edit',
+                component: () => import('@/views/admin/tags-input')
+            }
+        ],
         meta: {
             requireAuth: true
         }
-    },
-    {
-        path: '/admin/blogs',
-        name: 'admin-blogs',
-        component: () => import('@/views/admin/blogs'),
-        meta: {
-            requireAuth: true
-        }
-    },
-    {
-        path: '/admin/blogs/input',
-        name: 'admin-blogs-input',
-        component: () => import('@/views/admin/blogs-input'),
-        meta: {
-            requireAuth: true
-        }
-    },
-    {
-        path: '/admin/blogs/:blogId/input',
-        name: 'admin-blogs-edit',
-        component: () => import('@/views/admin/blogs-input'),
-        meta: {
-            requireAuth: true
-        }
-    },
-    {
-        path: '/admin/types',
-        name: 'admin-types',
-        component: () => import('@/views/admin/types'),
-        meta: {
-            requireAuth: true
-        }
-    },
-    {
-        path: '/admin/types/input',
-        name: 'admin-types-input',
-        component: () => import('@/views/admin/types-input'),
-        meta: {
-            requireAuth: true
-        }
-    },
-    {
-        path: '/admin/types/:typeId/input',
-        name: 'admin-types-edit',
-        component: () => import('@/views/admin/types-input'),
-        meta: {
-            requireAuth: true
-        }
-    },
-    {
-        path: '/admin/tags',
-        name: 'admin-tags',
-        component: () => import('@/views/admin/tags'),
-        meta: {
-            requireAuth: true
-        }
-    },
-    {
-        path: '/admin/tags/input',
-        name: 'admin-tags-input',
-        component: () => import('@/views/admin/tags-input'),
-        meta: {
-            requireAuth: true
-        }
-    },
-    {
-        path: '/admin/tags/:tagId/input',
-        name: 'admin-tags-edit',
-        component: () => import('@/views/admin/tags-input'),
-        meta: {
-            requireAuth: true
-        }
-    },
-    //admin end
+    }
 ]
 
 const router = new VueRouter({

@@ -3,10 +3,10 @@
         <Layout>
             <div class="block" slot="main-content">
                 <el-timeline>
-                    <el-timeline-item :timestamp="blog.createTime" placement="top" v-for="blog in blogs">
+                    <el-timeline-item :timestamp="blog.createTime" placement="top" :key="blog.id" v-for="blog in blogs">
                         <el-card>
                             <h4>
-                                <router-link :to="{name: 'blog', params: {blogId: blog.id}}">
+                                <router-link :to="{name: 'blogId', params: {blogId: blog.id}}">
                                     {{blog.title}}
                                 </router-link>
                             </h4>

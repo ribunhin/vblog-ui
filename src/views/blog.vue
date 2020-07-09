@@ -22,7 +22,7 @@
     import 'github-markdown-css/github-markdown.css'
 
     export default {
-        name: 'blog',
+        name: 'blogId',
         components: {Layout},
         data() {
             return {
