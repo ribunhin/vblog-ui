@@ -1,22 +1,16 @@
 <template>
     <div>
-        <Layout>
-            <div slot="main-content">
-                archives
-            </div>
-        </Layout>
+        archives
     </div>
 </template>
 
 <script>
-    import Layout from '@/layout'
 
     export default {
-        name: "archives",
-        components: {Layout},
+        name: "archives"
     }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 
 </style>

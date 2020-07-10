@@ -1,25 +1,19 @@
 <template>
-    <div>
-        <Layout>
-            <div class="m-content" slot="main-content">
-                <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
-                    <el-form-item label="标题" prop="title">
-                        <el-input v-model="ruleForm.title"></el-input>
-                    </el-form-item>
-                    <el-form-item label="摘要" prop="description">
-                        <el-input type="textarea" v-model="ruleForm.description"></el-input>
-                    </el-form-item>
-                    <el-form-item label="内容" prop="content">
-                        <mavon-editor v-model="ruleForm.content"></mavon-editor>
-                    </el-form-item>
-                    <el-form-item>
-                        <el-button type="primary" @click="submitForm('ruleForm')">Create</el-button>
-                        <el-button @click="resetForm('ruleForm')">Reset</el-button>
-                    </el-form-item>
-                </el-form>
-            </div>
-        </Layout>>
-    </div>
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
+        <el-form-item label="标题" prop="title">
+            <el-input v-model="ruleForm.title"></el-input>
+        </el-form-item>
+        <el-form-item label="摘要" prop="description">
+            <el-input type="textarea" v-model="ruleForm.description"></el-input>
+        </el-form-item>
+        <el-form-item label="内容" prop="content">
+            <mavon-editor v-model="ruleForm.content"></mavon-editor>
+        </el-form-item>
+        <el-form-item>
+            <el-button type="primary" @click="submitForm('ruleForm')">Create</el-button>
+            <el-button @click="resetForm('ruleForm')">Reset</el-button>
+        </el-form-item>
+    </el-form>
 </template>
 
 <script>
@@ -54,7 +48,7 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         const _this = this
-                        this.$axios.post('/admin/blog/input', this.ruleForm, {
+                        this.$axios.post('/admin/blogs/input', this.ruleForm, {
                             headers: {
                                 'Authorization': localStorage.getItem('token')
                             }
@@ -63,7 +57,7 @@
                             _this.$alert('操作成功', '提示', {
                                 confirmButtonText: '确定',
                                 callback: action => {
-                                    _this.$router.push('/blogs')
+                                    _this.$router.push('/admin/blogs')
                                 }
                             });
                         })
@@ -94,7 +88,7 @@
     }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
     .m-content {
         margin: 0 auto;
         text-align: center;

@@ -1,19 +1,12 @@
 <template>
-    <div>
-        <Layout>
-            <div class="block" slot="main-content">
-                <div class="m-blog" slot="main">
-                    <h2>
-                        {{blog.title}}
-                    </h2>
-                    <el-link icon="el-icon-edit" v-if="ownBlog">
-                        <router-link :to="{name: 'admin-blogs-edit', params: {blogId: blog.id}}">编辑</router-link>
-                    </el-link>
-                    <el-divider></el-divider>
-                    <div class="content markdown-body" v-html="blog.content"></div>
-                </div>
-            </div>
-        </Layout>
+    <div class="block">
+        <div class="m-blog" slot="main">
+            <h2>
+                {{blog.title}}
+            </h2>
+            <el-divider></el-divider>
+            <div class="content markdown-body" v-html="blog.content"></div>
+        </div>
     </div>
 </template>
 
@@ -62,6 +55,6 @@
     }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 
 </style>

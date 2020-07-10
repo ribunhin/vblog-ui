@@ -1,40 +1,36 @@
 <template>
     <div>
-        <Layout>
-            <div slot="main-header">
-                <el-header>
-                    <img class="mlogo" src="https://www.markerhub.com/dist/images/logo/markerhub-logo.png" alt="">
-                </el-header>
-            </div>
-            <div slot="main-content">
-                <el-container class="m-login-container">
-                    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="m-login-form">
-                        <div class="m-login-title-container">
-                            <h3 class="m-title"> 用户登录 </h3>
-                        </div>
-                        <el-form-item prop="username">
-                            <el-input prefix-icon="el-icon-user" v-model="ruleForm.username"></el-input>
-                        </el-form-item>
-                        <el-form-item prop="password">
-                            <el-input prefix-icon="el-icon-lock" type="password" v-model="ruleForm.password"></el-input>
-                        </el-form-item>
-                        <el-form-item>
-                            <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
-                            <el-button @click="resetForm('ruleForm')">重置</el-button>
-                        </el-form-item>
-                    </el-form>
-                </el-container>
-            </div>
-        </Layout>
+        <div slot="main-header">
+            <el-header>
+                <img class="mlogo" src="https://www.markerhub.com/dist/images/logo/markerhub-logo.png" alt="">
+            </el-header>
+        </div>
+        <div slot="main-content">
+            <el-container class="m-login-container">
+                <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="m-login-form">
+                    <div class="m-login-title-container">
+                        <h3 class="m-title"> 用户登录 </h3>
+                    </div>
+                    <el-form-item prop="username">
+                        <el-input prefix-icon="el-icon-user" v-model="ruleForm.username"></el-input>
+                    </el-form-item>
+                    <el-form-item prop="password">
+                        <el-input prefix-icon="el-icon-lock" type="password" v-model="ruleForm.password"></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
+                        <el-button @click="resetForm('ruleForm')">重置</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-container>
+        </div>
     </div>
 </template>
 
 <script>
-    import Layout from '@/layout'
 
     export default {
         name: 'login',
-        components: {Layout},
         data() {
             return {
                 ruleForm: {
@@ -71,6 +67,11 @@
                             // console.log(_this.$store.getters.getUser)
 
                             _this.$router.push('/admin')
+
+                            _this.$message({
+                                message: 'Hi,' + userInfo.nickname + '欢迎登录',
+                                type: 'success'
+                            })
                         });
                     } else {
                         // console.log('error submit!!');
@@ -85,7 +86,7 @@
     }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 
     .mlogo {
         height: 60%;

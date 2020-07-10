@@ -1,61 +1,53 @@
 <template>
-    <div class="app-wrapper">
-        <Sidebar class="sidebar-container m-mobile-hide"/>
-        <div class="main-container">
-            <AppMain>
-                <div slot="main-header">
-                    <slot name="main-header"></slot>
-                </div>
-                <div slot="main-content">
-                    <slot name="main-content"></slot>
-                </div>
-                <div slot="main-footer">
-                    <slot name="main-footer"></slot>
-                </div>
-            </AppMain>
-        </div>
-    </div>
+    <el-container class="index-container">
+
+        <el-aside>
+            <div class="m-sidebar-main cover-red">
+                <sidebar ref="sidebar"/>
+            </div>
+        </el-aside>
+
+        <el-main>
+            <app-main ref="app-main"/>
+        </el-main>
+    </el-container>
 </template>
 
 <script>
-    import RightPanel from '../components/RightPanel'
     import {AppMain, Sidebar} from './components'
 
     export default {
         name: 'Layout',
         components: {
             AppMain,
-            RightPanel,
             Sidebar,
         }
     }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 
-    .app-wrapper {
+    .index-container {
         position: relative;
         height: 100%;
         width: 100%;
     }
 
-    .sidebar-container {
-        display: block;
-        position: fixed;
-        z-index: 900;
-        width: 300px;
-        height: 100%;
-        max-width: none;
-        overflow: hidden;
-        text-align: center;
+    .el-aside {
         background: url(../assets/images/background-cover.jpg) top left no-repeat #666666;
         background-size: cover;
     }
 
-    .main-container {
-        min-height: 100%;
-        transition: margin-left .28s;
-        margin-left: 300px;
-        position: relative;
+    .m-sidebar-main {
+        display: table;
+        width: 100%;
+        height: 100%;
     }
+
+    .cover-red {
+        background-color: rgba(119, 31, 18, 0.6);
+        background-image: -webkit-linear-gradient(-410deg, rgba(119, 31, 18, 0.6) 20%, rgba(30, 8, 5, 0.8));
+        background-image: linear-gradient(140deg, rgba(119, 31, 18, 0.6) 20%, rgba(30, 8, 5, 0.8));
+    }
+
 </style>

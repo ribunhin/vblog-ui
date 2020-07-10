@@ -1,40 +1,34 @@
 <template>
-    <div>
-        <Layout>
-            <div class="block" slot="main-content">
-                <el-timeline>
-                    <el-timeline-item :timestamp="blog.createTime" placement="top" :key="blog.id" v-for="blog in blogs">
-                        <el-card>
-                            <h4>
-                                <router-link :to="{name: 'blogId', params: {blogId: blog.id}}">
-                                    {{blog.title}}
-                                </router-link>
-                            </h4>
-                            <p>{{blog.description}}</p>
-                        </el-card>
-                    </el-timeline-item>
-                </el-timeline>
+    <div class="block">
+        <el-timeline>
+            <el-timeline-item :timestamp="blog.createTime" placement="top" :key="blog.id" v-for="blog in blogs">
+                <el-card>
+                    <h4>
+                        <router-link :to="{name: 'blogId', params: {blogId: blog.id}}">
+                            {{blog.title}}
+                        </router-link>
+                    </h4>
+                    <p>{{blog.description}}</p>
+                </el-card>
+            </el-timeline-item>
+        </el-timeline>
 
-                <el-pagination class="m-page"
-                               background
-                               layout="prev, pager, next"
-                               :current-page="currentPage"
-                               :page-size="pageSize"
-                               :total="total"
-                               @current-change=page
-                >
-                </el-pagination>
-            </div>
-        </Layout>
+        <el-pagination class="m-page"
+                       background
+                       layout="prev, pager, next"
+                       :current-page="currentPage"
+                       :page-size="pageSize"
+                       :total="total"
+                       @current-change=page
+        >
+        </el-pagination>
     </div>
 </template>
 
 <script>
-    import Layout from '@/layout'
 
     export default {
         name: 'index',
-        components: {Layout},
         data() {
             return {
                 blogs: {},
@@ -61,7 +55,7 @@
     }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
     .m-page {
         margin: 0 auto;
         text-align: center;

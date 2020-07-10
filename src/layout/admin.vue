@@ -1,37 +1,32 @@
 <template>
-    <el-container class="llll-container">
-
+    <el-container class="admin-container">
         <el-header>
             <div>
                 <img src="../assets/logo.png" alt="" class="logo_img">
-                <span>XXX管理后台</span>
+                <span>webblog后台管理</span>
             </div>
-            <el-button type="danger" @click="logout">退出</el-button>
+            <el-button type="info" @click="logout">退出</el-button>
         </el-header>
 
         <el-container>
             <el-aside :width="isCollapse ? '64px':'200px'">
-                <div class="toggle-button" @click="toggleCollapase">|||</div>
-                <sidebar2 ref="sidebar2" />
+                <div class="toggle-button" @click="toggleCollapase"><i :class="isCollapse ? 'el-icon-s-unfold':'el-icon-s-fold'"></i></div>
+                <sidebar-admin ref="sidebar" />
             </el-aside>
             <el-main>
-                <app-main />
+                <app-main ref="app-main" />
             </el-main>
         </el-container>
-
     </el-container>
 </template>
 
 <script>
-    import RightPanel from '../components/RightPanel'
-    import {AppMain, Sidebar2} from './components'
+    import {AppMain, SidebarAdmin} from './components'
 
     export default {
-        name: 'lllll',
         components: {
             AppMain,
-            RightPanel,
-            Sidebar2,
+            SidebarAdmin,
         },
         data() {
             return {
@@ -52,7 +47,7 @@
             },
             toggleCollapase() {
                 this.isCollapse = !this.isCollapse
-                this.$refs.sidebar2.collapse(this.isCollapse)
+                this.$refs.sidebar.collapse(this.isCollapse)
             },
         }
     }
@@ -60,7 +55,7 @@
 
 <style lang="less" scoped>
 
-    .llll-container {
+    .admin-container {
         height: 100%;
     }
 
@@ -97,11 +92,9 @@
 
     .toggle-button {
         background-color: #4A5064;
-        font-size: 10px;
-        line-height: 24px;
-        color: #ffffff;
+        line-height: 56px;
         text-align: center;
-        letter-spacing: .2em;
+        color: #909399;;
         cursor: pointer;
     }
 

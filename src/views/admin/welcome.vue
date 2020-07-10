@@ -8,8 +8,8 @@
                     description="欢迎回来"
                     show-icon>
             </el-alert>
-            <div class="m-welcome">
-            </div>
+
+            <el-image class="welcome-img m-margin-top-large" src="https://picsum.photos/id/1003/800/450" fit="fill" />
         </div>
     </div>
 </template>
@@ -19,23 +19,15 @@
     export default {
         name: "welcome",
         created() {
-            this.$message({
-                message: 'Hi,' + this.$store.getters.getUser.nickname + '欢迎登录',
-                type: 'success'
-            })
+
         }
     }
 </script>
 
-<style scoped>
-
-    .m-welcome {
-        display: table;
-        border-radius: .3125em;
-        border: 1px solid rgba(0, 0, 0, .1);
-        margin: 30px auto;
+<style lang="less" scoped>
+    .welcome-img {
         width: 800px;
         height: 450px;
-        background: url(https://picsum.photos/id/1003/800/450) top left no-repeat #666666;
+        margin: 0 auto;
     }
 </style>
