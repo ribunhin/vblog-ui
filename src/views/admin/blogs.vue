@@ -8,77 +8,80 @@
         </el-breadcrumb>
         -->
         <el-card shadow="never">
-            <el-row :gutter="25">
-                <el-col :span="8">
-                    <el-input placeholder="标题"></el-input>
-                </el-col>
-                <el-col :span="6">
-                    <div style="display: inline-flex">
-                        <el-select v-model="value" placeholder="分类">
-                            <el-option
-                                    v-for="item in options"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
-                            </el-option>
-                        </el-select>
-                        <el-button type="info">清除</el-button>
-                    </div>
-                </el-col>
-                <el-col :span="3">
-                    <el-checkbox v-model="checked" label="推荐" border></el-checkbox>
-                </el-col>
-                <el-col :span="3">
-                    <el-button icon="el-icon-search" @click="searchBlogList">搜索</el-button>
-                </el-col>
-            </el-row>
+            <el-form :inline="true" :model="queryObj" :rules="searchRules" ref="searchForm">
+                <el-form-item prop="title">
+                    <el-input placeholder="标题" v-model="queryObj.title" style="width: 300px"></el-input>
+                </el-form-item>
+                <el-form-item prop="typeId">
+                    <el-select v-model="queryObj.typeId" clearable placeholder="分类">
+                        <el-option
+                                v-for="item in typeList"
+                                :key="item.id"
+                                :label="item.name"
+                                :value="item.id">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item prop="recommend">
+                    <el-checkbox v-model="queryObj.recommend" label="推荐" border></el-checkbox>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" icon="el-icon-search" @click="submitForm('searchForm')">搜索</el-button>
+                </el-form-item>
+            </el-form>
         </el-card>
-        <el-card class="m-margin-top-large">
+        <el-card class="m-margin-top-small">
             <el-table
-                    :data="tableData"
+                    :data="blogList"
                     border
                     style="width: 100%">
-                <el-table-column type="index" :index="indexMethod" width="53">
-                </el-table-column>
-                <el-table-column label="标题" width="371">
-                </el-table-column>
-                <el-table-column label="类型" width="160">
-                </el-table-column>
-                <el-table-column label="推荐" width="64">
-                </el-table-column>
-                <el-table-column label="发布" width="64">
-                </el-table-column>
-                <el-table-column label="状态" width="64">
-                </el-table-column>
-                <el-table-column label="更新时间" width="160">
-                </el-table-column>
-                <!--
                 <el-table-column
-                        label="日期"
-                        width="180">
-                    <template slot-scope="scope">
-                        <i class="el-icon-time"></i>
-                        <span style="margin-left: 10px">{{ scope.row.date }}</span>
-                    </template>
+                        type="index"
+                        :index="indexMethod"
+                        width="54">
                 </el-table-column>
                 <el-table-column
-                        label="姓名"
-                        width="180">
+                        prop="title"
+                        label="标题"
+                        min-width="390">
+                </el-table-column>
+                <el-table-column
+                        label="类型"
+                        min-width="160">
                     <template slot-scope="scope">
-                        <el-popover trigger="hover" placement="top">
-                            <p>姓名: {{ scope.row.name }}</p>
-                            <p>住址: {{ scope.row.address }}</p>
-                            <div slot="reference" class="name-wrapper">
-                                <el-tag size="medium">{{ scope.row.name }}</el-tag>
-                            </div>
-                        </el-popover>
+                        {{getTypeName(scope.row.typeId)}}
                     </template>
                 </el-table-column>
-                 -->
-                <el-table-column label="操作">
+
+                <el-table-column
+                        :formatter="dataFormat"
+                        prop="recommend"
+                        label="推荐"
+                        min-width="64">
+                </el-table-column>
+                <el-table-column
+                        :formatter="dataFormat"
+                        prop="published"
+                        label="发布"
+                        min-width="64">
+                </el-table-column>
+                <el-table-column
+                        prop="flag"
+                        label="状态"
+                        min-width="64">
+                </el-table-column>
+                <el-table-column
+                        prop="updateTime"
+                        label="更新时间"
+                        min-width="140">
+                </el-table-column>
+                <el-table-column
+                        min-width="146"
+                        label="操作">
                     <template slot-scope="scope">
                         <el-button
                                 size="mini"
+                                type="primary"
                                 @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
                         <el-button
                                 size="mini"
@@ -86,13 +89,17 @@
                                 @click="handleDelete(scope.$index, scope.row)">删除</el-button>
                     </template>
                 </el-table-column>
+
             </el-table>
-            <el-pagination
-                    class="m-margin-top"
-                    background
-                    :hide-on-single-page="hasData"
-                    :total="19"
-                    layout="prev, pager, next">
+            <el-pagination class="m-margin-top-small"
+                           background
+                           :hide-on-single-page="true"
+                           layout="prev, pager, next"
+                           :current-page="currentPage"
+                           :page-size="pageSize"
+                           :total="total"
+                           @current-change=page
+            >
             </el-pagination>
         </el-card>
 
@@ -105,42 +112,20 @@
         name: "blogs",
         data() {
             return {
-                tableData: [{
-                    date: '2016-05-02',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
-                }, {
-                    date: '2016-05-04',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1517 弄'
-                }, {
-                    date: '2016-05-01',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1519 弄'
-                }, {
-                    date: '2016-05-03',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1516 弄'
-                }],
-                options: [{
-                    value: '选项1',
-                    label: '黄金糕'
-                }, {
-                    value: '选项2',
-                    label: '双皮奶'
-                }, {
-                    value: '选项3',
-                    label: '蚵仔煎'
-                }, {
-                    value: '选项4',
-                    label: '龙须面'
-                }, {
-                    value: '选项5',
-                    label: '北京烤鸭'
-                }],
-                value: '',
-                checked: true,
-                hasData: true,
+                queryObj: {
+                    title: '',
+                    typeId: '',
+                    recommend: false,
+                    page: 1,
+                },
+                searchRules: {
+
+                },
+                blogList: [],
+                currentPage: 1,
+                total: 0,
+                pageSize: 10,
+                typeList: [],
             }
         },
         methods: {
@@ -152,11 +137,66 @@
             },
             indexMethod(index) {
                 return index + 1;
+            },
+            types() {
+                const _this = this
+                this.$axios.get('/type/all').then(res => {
+                    if (res.data.code != 200) {
+                        console.log(res.data.msg)
+                        return
+                    }
+                    _this.typeList = res.data.data
+                })
+            },
+            page(currentPage) {
+                const _this = this
+                this.queryObj.page = currentPage
+                this.$axios.post('/blog/search', this.queryObj).then(res => {
+                    if (res.data.code != 200) {
+                        console.log(res.data.msg)
+                        return
+                    }
+                    _this.blogList = res.data.data.records
+                    _this.currentPage = res.data.data.current
+                    _this.total = res.data.data.total
+                    _this.pageSize = res.data.data.size
+                    _this.pages = res.data.data.pages
+                })
+            },
+            submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        this.page(1)
+                    } else {
+                        // console.log('error submit!!');
+                        return false
+                    }
+                })
+            },
+            dataFormat(row, column) {
+                if (column.property == 'recommend') {
+                    return row.recommend ? '是' : '否'
+                } else if (column.property == 'published') {
+                    return row.published ? '是' : '否'
+                }
+            },
+            getTypeName(typeId) {
+                const elem = this.typeList.find(function (value) {
+                    return value.id == typeId
+                })
+                return elem ? elem.name:''
             }
+        },
+        created() {
+            this.types()
+            this.page(1)
         }
     }
 </script>
 
 <style lang="less" scoped>
 
+    .el-form-item {
+        margin-bottom: 0;
+    }
 </style>

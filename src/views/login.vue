@@ -7,19 +7,19 @@
         </div>
         <div slot="main-content">
             <el-container class="m-login-container">
-                <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="m-login-form">
+                <el-form :model="loginObj" :rules="loginRules" ref="loginForm" class="m-login-form">
                     <div class="m-login-title-container">
                         <h3 class="m-title"> 用户登录 </h3>
                     </div>
                     <el-form-item prop="username">
-                        <el-input prefix-icon="el-icon-user" v-model="ruleForm.username"></el-input>
+                        <el-input prefix-icon="el-icon-user" v-model="loginObj.username"></el-input>
                     </el-form-item>
                     <el-form-item prop="password">
-                        <el-input prefix-icon="el-icon-lock" type="password" v-model="ruleForm.password"></el-input>
+                        <el-input prefix-icon="el-icon-lock" type="password" v-model="loginObj.password"></el-input>
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
-                        <el-button @click="resetForm('ruleForm')">重置</el-button>
+                        <el-button type="primary" @click="submitForm('loginForm')">登录</el-button>
+                        <el-button @click="resetForm('loginForm')">重置</el-button>
                     </el-form-item>
                 </el-form>
             </el-container>
@@ -33,11 +33,11 @@
         name: 'login',
         data() {
             return {
-                ruleForm: {
+                loginObj: {
                     username: 'webbleen',
                     password: '111111'
                 },
-                rules: {
+                loginRules: {
                     username: [
                         {required: true, message: '请输入用户名', trigger: 'blur'},
                         {min: 3, max: 15, message: '长度在3到15个字符', trigger: 'blur'}
@@ -53,7 +53,7 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         const _this = this
-                        this.$axios.post('/login', this.ruleForm).then(res => {
+                        this.$axios.post('/user/login', this.loginObj).then(res => {
                             // console.log(res.headers)
                             // console.log(res)
                             const jwt = res.headers['authorization']

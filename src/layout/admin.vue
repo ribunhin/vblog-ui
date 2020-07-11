@@ -36,7 +36,7 @@
         methods: {
             logout() {
                 const _this = this
-                _this.$axios.get('/logout', {
+                _this.$axios.get('/user/logout', {
                     headers: {
                         'Authorization': localStorage.getItem('token')
                     }

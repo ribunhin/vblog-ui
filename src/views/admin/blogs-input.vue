@@ -48,7 +48,7 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         const _this = this
-                        this.$axios.post('/admin/blogs/input', this.ruleForm, {
+                        this.$axios.post('/blog/input', this.ruleForm, {
                             headers: {
                                 'Authorization': localStorage.getItem('token')
                             }
@@ -76,7 +76,7 @@
             // console.log(blogId)
             if (blogId) {
                 const _this = this
-                this.$axios.get('/blogs/' + blogId).then(res => {
+                this.$axios.get('/blog/' + blogId).then(res => {
                     const blog = res.data.data
                     _this.ruleForm.id = blog.id
                     _this.ruleForm.title = blog.title

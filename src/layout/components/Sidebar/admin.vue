@@ -1,22 +1,20 @@
 <template>
     <el-menu
-            :default-active="activePath"
-            @open="handleOpen"
-            @close="handleClose"
             background-color="#545c64"
             text-color="#fff"
-            active-text-color="#ffd04b"
+            active-text-color="#409eff"
+            unique-opened
             :collapse="isCollapse"
             :collapse-transition="false"
             :router="true"
-            unique-opened>
+            :default-active="activePath">
         <el-submenu :index="item.id+''" v-for="item in menuList" :key="item.id">
             <template slot="title">
                 <i :class="iconsObject[item.id]"></i>
                 <span>{{item.title}}</span>
             </template>
-            <el-menu-item :index="item.path+it.path" v-for="it in item.slist" :key="it.id"
-                          @click="clickMenu(item.path+it.path)">
+
+            <el-menu-item :index="item.path+it.path" v-for="it in item.slist" :key="it.id" @click="saveNavState(item.path+it.path)">
                 <template slot="title">
                     <i :class="iconsObject[item.id]"></i>
                     <span>{{it.title}}</span>
@@ -49,7 +47,7 @@
                     '702': 'el-icon-setting',
                 },
                 isCollapse: false,
-                activePath: '/admin/index'
+                activePath: ''
             }
         },
         methods: {
@@ -61,7 +59,7 @@
                 console.log(key)
                 console.log(keyPath)
             },
-            async getMenuList() {
+            getMenuList() {
                 const menuList = [
                     {
                         "id": '100',
@@ -123,16 +121,17 @@
 
                 this.menuList = menuList
             },
-            clickMenu(path) {
-                console.log(path)
-                this.activePath = path
+            saveNavState(activePath){
+                window.sessionStorage.setItem('activePath',activePath);// 存放点击的二级菜单
+                this.activePath = activePath;// 给点击的菜单添加高亮
             },
             collapse(isCollapse) {
                 this.isCollapse = isCollapse
             },
         },
         created() {
-            this.getMenuList();
+            this.getMenuList()
+            this.activePath = window.sessionStorage.getItem('activePath')// 取出session里的访问路径
         }
     }
 </script>

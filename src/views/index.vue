@@ -15,6 +15,7 @@
 
         <el-pagination class="m-page"
                        background
+                       :hide-on-single-page="true"
                        layout="prev, pager, next"
                        :current-page="currentPage"
                        :page-size="pageSize"
@@ -40,12 +41,16 @@
         methods: {
             page(currentPage) {
                 const _this = this
-                _this.$axios.get('/blogs?currentPage=' + currentPage).then(res => {
-                    // console.log(res)
+                _this.$axios.get('/blog/index?currentPage=' + currentPage).then(res => {
+                    if (res.data.code != 200) {
+                        console.log(res.data.msg)
+                        return
+                    }
                     _this.blogs = res.data.data.records
                     _this.currentPage = res.data.data.current
                     _this.total = res.data.data.total
                     _this.pageSize = res.data.data.size
+                    _this.pages = res.data.data.pages
                 })
             }
         },
