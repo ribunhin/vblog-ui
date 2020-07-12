@@ -7,7 +7,7 @@
             :collapse="isCollapse"
             :collapse-transition="false"
             :router="true"
-            :default-active="activePath">
+            :default-active="activeMenu">
         <el-submenu :index="item.id+''" v-for="item in menuList" :key="item.id">
             <template slot="title">
                 <i :class="iconsObject[item.id]"></i>
@@ -26,7 +26,18 @@
 
 <script>
     export default {
-        name: "Sidebar2",
+        name: "SidebarAdmin",
+        computed: {
+            activeMenu() {
+                const route = this.$route
+                const { meta, path } = route
+                // if set path, the sidebar will highlight the path you set
+                if (meta.activeMenu) {
+                    return meta.activeMenu
+                }
+                return path
+            },
+        },
         data() {
             return {
                 menuList: [],
@@ -35,6 +46,7 @@
                     '102': 'el-icon-s-home',
                     '200': 'el-icon-document',
                     '201': 'el-icon-document',
+                    '202': 'el-icon-document',
                     '300': 'el-icon-s-comment',
                     '302': 'el-icon-s-comment',
                     '400': 'el-icon-collection',
@@ -47,18 +59,10 @@
                     '702': 'el-icon-setting',
                 },
                 isCollapse: false,
-                activePath: ''
+                // activePath: ''
             }
         },
         methods: {
-            handleOpen(key, keyPath) {
-                console.log(key)
-                console.log(keyPath)
-            },
-            handleClose(key, keyPath) {
-                console.log(key)
-                console.log(keyPath)
-            },
             getMenuList() {
                 const menuList = [
                     {
@@ -73,7 +77,8 @@
                         "id": '200',
                         "path": "/admin",
                         "slist": [
-                            {"id": 201, "path": "/blogs", "title": "文章管理"}
+                            {"id": 201, "path": "/blogs", "title": "文章列表"},
+                            {"id": 202, "path": "/blogs/input", "title": "新建文章"}
                         ],
                         "title": "文章管理"
                     },
@@ -122,8 +127,8 @@
                 this.menuList = menuList
             },
             saveNavState(activePath){
-                window.sessionStorage.setItem('activePath',activePath);// 存放点击的二级菜单
-                this.activePath = activePath;// 给点击的菜单添加高亮
+                // window.sessionStorage.setItem('activePath',activePath);// 存放点击的二级菜单
+                // this.activePath = activePath;// 给点击的菜单添加高亮
             },
             collapse(isCollapse) {
                 this.isCollapse = isCollapse
@@ -131,7 +136,7 @@
         },
         created() {
             this.getMenuList()
-            this.activePath = window.sessionStorage.getItem('activePath')// 取出session里的访问路径
+            // this.activePath = window.sessionStorage.getItem('activePath')// 取出session里的访问路径
         }
     }
 </script>

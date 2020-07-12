@@ -57,6 +57,27 @@
 
     .admin-container {
         height: 100%;
+        .el-header {
+            background-color: #373d41;
+            display: flex;
+            padding-left: 0%;
+            justify-content: space-between; //左右贴边
+            align-items: center;
+            color: #ffffff;
+            font-size: 20px;
+
+            > div {
+                display: flex;
+                align-items: center;
+
+                span {
+                    margin-left: 15px;
+                }
+            }
+        }
+        .el-container {
+            height: calc(100% - 60px);
+        }
     }
 
     .logo_img {
@@ -64,24 +85,7 @@
         width: 20%;
     }
 
-    .el-header {
-        background-color: #373d41;
-        display: flex;
-        padding-left: 0%;
-        justify-content: space-between; //左右贴边
-        align-items: center;
-        color: #ffffff;
-        font-size: 20px;
 
-        > div {
-            display: flex;
-            align-items: center;
-
-            span {
-                margin-left: 15px;
-            }
-        }
-    }
 
     .el-aside {
         background-color: #333744;

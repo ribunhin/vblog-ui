@@ -103,12 +103,8 @@ const routes = [
     {
         path: '/admin',
         component: LayoutAdmin,
+        redirect: '/admin/index',
         children: [
-            {
-                path: '',
-                name: 'welcome',
-                component: () => import('@/views/admin/welcome')
-            },
             {
                 path: 'index',
                 name: 'welcome',

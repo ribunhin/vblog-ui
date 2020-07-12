@@ -91,16 +91,18 @@
                 </el-table-column>
 
             </el-table>
-            <el-pagination class="m-margin-top-small"
-                           background
-                           :hide-on-single-page="true"
-                           layout="prev, pager, next"
-                           :current-page="currentPage"
-                           :page-size="pageSize"
-                           :total="total"
-                           @current-change=page
-            >
-            </el-pagination>
+            <div class="m-margin-top-small" style="display: flex; justify-content: space-between">
+                <el-pagination background
+                               layout="prev, next"
+                               :current-page="currentPage"
+                               :page-size="pageSize"
+                               :total="total"
+                               @current-change=page
+                               prev-text="上一页"
+                               next-text="下一页">
+                </el-pagination>
+                <el-button type="primary" size="small" @click="blogInput()">新增</el-button>
+            </div>
         </el-card>
 
     </div>
@@ -130,10 +132,10 @@
         },
         methods: {
             handleEdit(index, row) {
-                console.log(index, row);
+                this.blogInput(row.id)
             },
             handleDelete(index, row) {
-                console.log(index, row);
+                this.blogInput(row.id)
             },
             indexMethod(index) {
                 return index + 1;
@@ -185,7 +187,17 @@
                     return value.id == typeId
                 })
                 return elem ? elem.name:''
-            }
+            },
+            blogInput(blogId) {
+                if (blogId) {
+                    this.$router.push('/admin/blogs/' + blogId + '/input')
+                } else {
+                    this.$router.push('/admin/blogs/input')
+                }
+            },
+            blogDelete(blogId) {
+
+            },
         },
         created() {
             this.types()
