@@ -70,10 +70,8 @@
 </template>
 
 <script>
-    import Layout from '@/layout'
     export default {
         name: 'blog-input',
-        components: {Layout},
         data() {
             return {
                 flags: ['原创','转载','翻译'],
@@ -105,7 +103,7 @@
                 },
                 typeList: [],
                 tagList: [],
-            };
+            }
         },
         methods: {
             types() {
@@ -149,6 +147,10 @@
                                 'Authorization': localStorage.getItem('token')
                             }
                         }).then(res => {
+                            if (res.data.code != 200) {
+                                console.log(res.data.msg)
+                                return
+                            }
                             // console.log(res)
                             _this.$alert('操作成功', '提示', {
                                 confirmButtonText: '确定',
@@ -163,9 +165,6 @@
                     }
                 });
             },
-            resetForm(formName) {
-                this.$refs[formName].resetFields();
-            }
         },
         created() {
             this.types()
@@ -175,6 +174,10 @@
             if (blogId) {
                 const _this = this
                 this.$axios.get('/blog/' + blogId).then(res => {
+                    if (res.data.code != 200) {
+                        console.log(res.data.msg)
+                        return
+                    }
                     const blog = res.data.data
                     _this.ruleForm.id = blog.id
                     _this.ruleForm.flag = blog.flag

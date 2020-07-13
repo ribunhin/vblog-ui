@@ -127,6 +127,7 @@
                 currentPage: 1,
                 total: 0,
                 pageSize: 10,
+                pages: 0,
                 typeList: [],
             }
         },
@@ -135,7 +136,7 @@
                 this.blogInput(row.id)
             },
             handleDelete(index, row) {
-                this.blogInput(row.id)
+                this.blogDelete(row.id)
             },
             indexMethod(index) {
                 return index + 1;

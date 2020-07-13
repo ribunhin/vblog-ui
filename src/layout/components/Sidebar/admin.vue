@@ -50,8 +50,10 @@
                     '300': 'el-icon-s-comment',
                     '302': 'el-icon-s-comment',
                     '400': 'el-icon-collection',
+                    '401': 'el-icon-collection',
                     '402': 'el-icon-collection',
                     '500': 'el-icon-collection-tag',
+                    '501': 'el-icon-collection-tag',
                     '502': 'el-icon-collection-tag',
                     '600': 'el-icon-files',
                     '602': 'el-icon-files',
@@ -94,7 +96,8 @@
                         "id": '400',
                         "path": "/admin",
                         "slist": [
-                            {"id": 401, "path": "/types", "title": "分类管理"}
+                            {"id": 401, "path": "/types", "title": "分类列表"},
+                            {"id": 402, "path": "/types/input", "title": "新建分类"}
                         ],
                         "title": "分类管理"
                     },
@@ -102,7 +105,8 @@
                         "id": '500',
                         "path": "/admin",
                         "slist": [
-                            {"id": 501, "path": "/tags", "title": "标签管理"}
+                            {"id": 501, "path": "/tags", "title": "标签列表"},
+                            {"id": 502, "path": "/tags/input", "title": "新建标签"}
                         ],
                         "title": "标签管理"
                     },
