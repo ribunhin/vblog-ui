@@ -62,9 +62,9 @@
             <el-checkbox v-model="ruleForm.commentable" label="评论"></el-checkbox>
         </el-form-item>
         <el-form-item class="m-align-right">
-            <el-button type="info" @click="goBack()">返回</el-button>
-            <el-button type="primary" @click="saveBlog('ruleForm')">保存</el-button>
-            <el-button type="success" @click="postBlog('ruleForm')">发布</el-button>
+            <el-button size="small" type="info" @click="goBack()">返回</el-button>
+            <el-button size="small" type="primary" @click="saveBlog('ruleForm')">保存</el-button>
+            <el-button size="small" type="success" @click="postBlog('ruleForm')">发布</el-button>
         </el-form-item>
     </el-form>
 </template>

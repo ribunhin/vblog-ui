@@ -6,8 +6,8 @@
             </el-input>
         </el-form-item>
         <el-form-item class="m-align-right">
-            <el-button type="info" @click="goBack()">返回</el-button>
-            <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+            <el-button size="small" type="info" @click="goBack()">返回</el-button>
+            <el-button size="small" type="primary" @click="submitForm('ruleForm')">提交</el-button>
         </el-form-item>
     </el-form>
 </template>
