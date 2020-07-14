@@ -176,6 +176,10 @@
     right: 0 !important;
 }
 
+.m-align-right {
+    text-align: right;
+}
+
 /*---------color---------*/
 .m-black {
     color: #333 !important;

@@ -50,7 +50,7 @@
         <el-form-item required>
             <el-input
                     type="textarea"
-                    :rows="3"
+                    :rows="10"
                     v-model="ruleForm.description"
                     placeholder="博客描述">
             </el-input>
@@ -61,7 +61,7 @@
             <el-checkbox v-model="ruleForm.appreciation" label="赞赏"></el-checkbox>
             <el-checkbox v-model="ruleForm.commentable" label="评论"></el-checkbox>
         </el-form-item>
-        <el-form-item>
+        <el-form-item class="m-align-right">
             <el-button type="info" @click="goBack()">返回</el-button>
             <el-button type="primary" @click="saveBlog('ruleForm')">保存</el-button>
             <el-button type="success" @click="postBlog('ruleForm')">发布</el-button>
