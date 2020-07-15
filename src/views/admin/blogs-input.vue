@@ -2,11 +2,9 @@
     <el-form @submit.native.prevent :model="ruleForm" :rules="rules" ref="ruleForm">
         <el-form-item required prop="title">
             <el-input v-model="ruleForm.title" class="input-with-select">
-                <el-form-item>
-                    <el-select v-model="ruleForm.flag" slot="prepend">
-                        <el-option v-for="item in flags" :key="item" :label="item" :value="item"></el-option>
-                    </el-select>
-                </el-form-item>
+                <el-select v-model="ruleForm.flag" slot="prepend">
+                    <el-option v-for="item in flags" :key="item" :label="item" :value="item"></el-option>
+                </el-select>
             </el-input>
         </el-form-item>
         <el-form-item required prop="content">
@@ -77,7 +75,7 @@
                 rules: {
                     title: [
                         { required: true, message: '请输入标题', trigger: 'blur' },
-                        { min: 3, max: 25, message: '长度在3到25个字符', trigger: 'blur' }
+                        { min: 2, max: 40, message: '长度在3到40个字符', trigger: 'blur' }
                     ],
                     description: [
                         { required: true, message: '请输入摘要', trigger: 'blur' }

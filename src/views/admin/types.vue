@@ -30,7 +30,7 @@
             </el-table-column>
 
         </el-table>
-        <div class=".m-margin-top-small" style="display: flex; justify-content: space-between">
+        <div class="m-margin-top-small" style="display: flex; justify-content: space-between">
             <el-pagination background
                            layout="prev, next"
                            :current-page="currentPage"

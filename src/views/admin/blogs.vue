@@ -30,7 +30,7 @@
                 </el-form-item>
             </el-form>
         </el-card>
-        <el-card class=".m-margin-top-small">
+        <el-card class="m-margin-top-small">
             <el-table
                     :data="blogList"
                     border
@@ -46,7 +46,7 @@
                         min-width="390">
                 </el-table-column>
                 <el-table-column
-                        label="类型"
+                        label="分类"
                         min-width="160">
                     <template slot-scope="scope">
                         {{getTypeName(scope.row.typeId)}}
@@ -91,7 +91,7 @@
                 </el-table-column>
 
             </el-table>
-            <div class=".m-margin-top-small" style="display: flex; justify-content: space-between">
+            <div class="m-margin-top-small" style="display: flex; justify-content: space-between">
                 <el-pagination background
                                layout="prev, next"
                                :current-page="currentPage"
