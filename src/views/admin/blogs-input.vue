@@ -1,53 +1,37 @@
 <template>
-    <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
-        <el-form-item required>
+    <el-form @submit.native.prevent :model="ruleForm" :rules="rules" ref="ruleForm">
+        <el-form-item required prop="title">
             <el-input v-model="ruleForm.title" class="input-with-select">
-                <el-select v-model="ruleForm.flag" slot="prepend">
-                    <el-option
-                            v-for="item in flags"
-                            :key="item"
-                            :label="item"
-                            :value="item">
-                    </el-option>
-                </el-select>
+                <el-form-item>
+                    <el-select v-model="ruleForm.flag" slot="prepend">
+                        <el-option v-for="item in flags" :key="item" :label="item" :value="item"></el-option>
+                    </el-select>
+                </el-form-item>
             </el-input>
         </el-form-item>
-        <el-form-item required>
+        <el-form-item required prop="content">
             <mavon-editor v-model="ruleForm.content" style="height: 640px"></mavon-editor>
         </el-form-item>
         <el-form-item required>
             <el-col :span="12">
-                <el-select
-                        style="width: 100%;"
-                        v-model="ruleForm.typeId"
-                        placeholder="分类">
-                    <el-option
-                            v-for="item in typeList"
-                            :key="item.id"
-                            :label="item.name"
-                            :value="item.id">
-                    </el-option>
-                </el-select>
-<!--                <el-input placeholder="分类" v-model="ruleForm.typeId">-->
-<!--                    <template slot="prepend">分类</template>-->
-<!--                </el-input>-->
+                <el-form-item prop="typeId">
+                    <el-select style="width: 100%;" v-model="ruleForm.typeId" placeholder="分类">
+                        <el-option v-for="item in typeList" :key="item.id" :label="item.name" :value="item.id"></el-option>
+                    </el-select>
+                </el-form-item>
             </el-col>
             <el-col :span="12">
-                <el-select
-                        style="width: 100%;"
-                        multiple
-                        v-model="ruleForm.tagIds"
-                        placeholder="标签">
-                    <el-option
-                            v-for="item in tagList"
-                            :key="item.id"
-                            :label="item.name"
-                            :value="item.id">
-                    </el-option>
-                </el-select>
+                <el-form-item prop="tagIds">
+                    <el-select style="width: 100%;" multiple v-model="ruleForm.tagIds" placeholder="标签">
+                        <el-option v-for="item in tagList" :key="item.id" :label="item.name" :value="item.id"></el-option>
+                    </el-select>
+                </el-form-item>
             </el-col>
         </el-form-item>
-        <el-form-item required>
+        <el-form-item required prop="firstPicture">
+            <el-input v-model="ruleForm.firstPicture" placeholder="首图引用地址"></el-input>
+        </el-form-item>
+        <el-form-item required prop="description">
             <el-input
                     type="textarea"
                     :rows="10"
@@ -81,6 +65,7 @@
                     title: '',
                     typeId: '',
                     tagIds: [],
+                    firstPicture: '',
                     description: '',
                     content: '',
                     recommend: false,
@@ -99,7 +84,17 @@
                     ],
                     content: [
                         { required: true, message: '请输入内容', trigger: 'blur' }
-                    ]
+                    ],
+                    typeId: [
+                        { required: true, message: '请选择分类', trigger: 'change' }
+                    ],
+                    tagIds: [
+                        { required: true, message: '请选择标签', trigger: 'change' }
+                    ],
+                    firstPicture: [
+                        { required: true, message: '请输入首图地址', trigger: 'blur' }
+                    ],
+
                 },
                 typeList: [],
                 tagList: [],
@@ -184,6 +179,7 @@
                     _this.ruleForm.title = blog.title
                     _this.ruleForm.typeId = blog.typeId
                     _this.ruleForm.tagIds = blog.tagIds
+                    _this.ruleForm.firstPicture = blog.firstPicture
                     _this.ruleForm.description = blog.description
                     _this.ruleForm.content = blog.content
                     _this.ruleForm.recommend = blog.recommend

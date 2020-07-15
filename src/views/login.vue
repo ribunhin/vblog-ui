@@ -7,7 +7,7 @@
         </div>
         <div slot="main-content">
             <el-container class="m-login-container">
-                <el-form :model="loginObj" :rules="loginRules" ref="loginForm" class="m-login-form">
+                <el-form @submit.native.prevent :model="loginObj" :rules="loginRules" ref="loginForm" class="m-login-form">
                     <div class="m-login-title-container">
                         <h3 class="m-title"> 用户登录 </h3>
                     </div>

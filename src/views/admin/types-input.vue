@@ -1,5 +1,5 @@
 <template>
-    <el-form :rules="rules" :model="ruleForm" ref="ruleForm">
+    <el-form @submit.native.prevent :rules="rules" :model="ruleForm" ref="ruleForm">
         <el-form-item required prop="name">
             <el-input v-model="ruleForm.name" placeholder="分类名称">
                 <template slot="prepend">分类</template>

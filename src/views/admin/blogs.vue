@@ -8,7 +8,7 @@
         </el-breadcrumb>
         -->
         <el-card shadow="never">
-            <el-form :inline="true" :model="queryObj" :rules="searchRules" ref="searchForm">
+            <el-form @submit.native.prevent :inline="true" :model="queryObj" :rules="searchRules" ref="searchForm">
                 <el-form-item prop="title">
                     <el-input placeholder="标题" v-model="queryObj.title" style="width: 300px"></el-input>
                 </el-form-item>
@@ -30,7 +30,7 @@
                 </el-form-item>
             </el-form>
         </el-card>
-        <el-card class="m-margin-top-small">
+        <el-card class=".m-margin-top-small">
             <el-table
                     :data="blogList"
                     border
@@ -91,7 +91,7 @@
                 </el-table-column>
 
             </el-table>
-            <div class="m-margin-top-small" style="display: flex; justify-content: space-between">
+            <div class=".m-margin-top-small" style="display: flex; justify-content: space-between">
                 <el-pagination background
                                layout="prev, next"
                                :current-page="currentPage"
