@@ -1,13 +1,12 @@
 import Vue from 'vue'
 import App from './App'
 
-import store from './store'
 import router from './router'
+import store from './store'
 
 import './plugins'
 
 import './axios'
-import './permission'
 
 // import styles
 import './assets/css/global.css'

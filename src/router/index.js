@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import Layout from '../layout/index'
-import LayoutAdmin from  '../layout/admin'
 
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {
@@ -12,17 +11,6 @@ VueRouter.prototype.push = function push(location) {
 Vue.use(VueRouter)
 
 const routes = [
-    {
-        path: '/login',
-        component: Layout,
-        children: [
-            {
-                path: '',
-                name: 'login',
-                component: () => import('@/views/login')
-            }
-        ]
-    },
     {
         path: '/',
         component: Layout,
@@ -100,66 +88,6 @@ const routes = [
             }
         ]
     },
-    {
-        path: '/admin',
-        component: LayoutAdmin,
-        redirect: '/admin/index',
-        children: [
-            {
-                path: 'index',
-                name: 'welcome',
-                component: () => import('@/views/admin/welcome')
-            },
-            {
-                path: 'blogs',
-                name: 'admin-blogs',
-                component: () => import('@/views/admin/blogs')
-            },
-            {
-                path: 'blogs/input',
-                name: 'admin-blogs-input',
-                component: () => import('@/views/admin/blogs-input')
-            },
-            {
-                path: 'blogs/:blogId/input',
-                name: 'admin-blogs-edit',
-                component: () => import('@/views/admin/blogs-input')
-            },
-            {
-                path: 'types',
-                name: 'admin-types',
-                component: () => import('@/views/admin/types')
-            },
-            {
-                path: 'types/input',
-                name: 'admin-types-input',
-                component: () => import('@/views/admin/types-input')
-            },
-            {
-                path: 'types/:typeId/input',
-                name: 'admin-types-edit',
-                component: () => import('@/views/admin/types-input')
-            },
-            {
-                path: 'tags',
-                name: 'admin-tags',
-                component: () => import('@/views/admin/tags')
-            },
-            {
-                path: 'tags/input',
-                name: 'admin-tags-input',
-                component: () => import('@/views/admin/tags-input')
-            },
-            {
-                path: 'tags/:tagId/input',
-                name: 'admin-tags-edit',
-                component: () => import('@/views/admin/tags-input')
-            }
-        ],
-        meta: {
-            requireAuth: true
-        }
-    }
 ]
 
 const router = new VueRouter({

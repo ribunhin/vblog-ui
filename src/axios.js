@@ -1,9 +1,6 @@
 import axios from 'axios'
 import Element from 'element-ui'
 
-import router from './router'
-import store from './store'
-
 axios.defaults.baseURL = 'http://127.0.0.1:8089'
 
 // 前置拦截
@@ -31,8 +28,7 @@ axios.interceptors.response.use(response => {
         }
 
         if (error.response.status === 401) {
-            store.commit('REMOVE_INFO')
-            router.push('/login')
+
         }
 
         // Element.Message.error(error.message, {duration: 3 * 1000})

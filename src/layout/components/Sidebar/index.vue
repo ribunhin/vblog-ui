@@ -27,21 +27,6 @@
                 </el-link>
                 <el-divider direction="vertical"></el-divider>
             </div>
-            <div v-if="hasLogin" class="m-margin-tb">
-                <el-divider direction="vertical"></el-divider>
-                <el-link type="primary">
-                    <router-link :to="{name: 'admin-blogs'}" tag="p">博客</router-link>
-                </el-link>
-                <el-divider direction="vertical"></el-divider>
-                <el-link type="success">
-                    <router-link :to="{name: 'admin-types'}" tag="p">分类</router-link>
-                </el-link>
-                <el-divider direction="vertical"></el-divider>
-                <el-link type="warning">
-                    <router-link :to="{name: 'admin-tags'}" tag="p">标签</router-link>
-                </el-link>
-                <el-divider direction="vertical"></el-divider>
-            </div>
         </div>
     </div>
 </template>
@@ -55,18 +40,13 @@
                     username: 'webbleen',
                     avatar: 'https://webbleen.com/assets/images/avatar.png'
                 },
-                hasLogin: false
             }
         },
         methods: {
 
         },
         created() {
-            if (this.$store.getters.getUser != null) {
-                this.user.username = this.$store.getters.getUser.username
-                this.user.avatar = this.$store.getters.getUser.avatar
-                this.hasLogin = true
-            }
+
         }
     }
 </script>

@@ -27,7 +27,6 @@
                     content: '',
                     createTime: ''
                 },
-                ownBlog: false
             }
         },
         methods: {
@@ -40,12 +39,6 @@
                     const markdownIt = require('markdown-it');
                     const md = new markdownIt();
                     _this.blog.content = md.render(_this.blog.content)
-
-                    if (_this.$store.getters.getUser) {
-                        _this.ownBlog = (_this.blog.userId === _this.$store.getters.getUser.id)
-                    } else {
-                        _this.ownBlog = false
-                    }
                 })
             }
         },
