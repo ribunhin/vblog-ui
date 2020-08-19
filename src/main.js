@@ -9,8 +9,8 @@ import './plugins'
 import './axios'
 
 // import styles
-import './assets/css/global.css'
-import './assets/css/me.css'
+import './assets/css/fontawesome-all.min.css'
+import './assets/css/main.css'
 
 Vue.config.productionTip = false
 

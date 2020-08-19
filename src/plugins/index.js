@@ -1,2 +1,2 @@
-import './element'
 import './axios'
+import './bootstrap-vue'
