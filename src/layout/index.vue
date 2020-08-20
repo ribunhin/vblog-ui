@@ -15,6 +15,16 @@
             Header,
             AppMain,
             Footer,
+        },
+        created() {},
+        mounted() {
+            this.$nextTick(this.onLoad)
+        },
+        methods: {
+            onLoad() {
+                // $footer.insertAfter($main)  //980px
+                // $footer.appendTo($header)
+            }
         }
     }
 </script>
